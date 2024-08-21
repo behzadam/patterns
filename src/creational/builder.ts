@@ -6,6 +6,10 @@ class Dialog {
   }
 }
 
+/**
+ * The classic Builder pattern.
+ *
+ */
 class DialogBuilder {
   private title: string = "";
   private description: string = "";
