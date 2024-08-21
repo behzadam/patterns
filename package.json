@@ -1,0 +1,30 @@
+{
+  "name": "patterns",
+  "version": "1.0.0",
+  "description": "TypeScript design patterns",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint ./src --ext .ts",
+    "prettier": "prettier \"**/*.+(json|ts)\"",
+    "format:check": "npm run prettier -- --check",
+    "format:fix": "npm run prettier -- --write",
+    "test": "jest"
+  },
+  "keywords": [
+    "patterns",
+    "design-patterns",
+    "typescript"
+  ],
+  "author": "Behzad Ali Mohammad Zad",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "eslint": "^9.9.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.4",
+    "typescript": "^5.5.4"
+  }
+}
