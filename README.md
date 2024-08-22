@@ -9,10 +9,10 @@ This repository provides practical examples of common design patterns in TypeScr
 ## Patterns Included
 
 - Creational Patterns
-  - [Factory Method]('./src/creational/factory/factory.ts')
+  - [Factory Method](src/creational/factory/factory.ts)
   - Abstract Factory
   - Singleton
-  - [Builder]('./src/creational/builder/builder.ts')
+  - [Builder](src/creational/builder/builder.ts)
   - Prototype
 - Structural Patterns
   - Adapter
