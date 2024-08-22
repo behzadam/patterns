@@ -15,14 +15,12 @@ class Dialog {
   }
 
   open() {
-    console.log("Dialog opened");
     if (this.options.onOpen) {
       this.options.onOpen();
     }
   }
 
   close() {
-    console.log("Dialog closed");
     if (this.options.onClose) {
       this.options.onClose();
     }
