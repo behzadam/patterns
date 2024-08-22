@@ -13,7 +13,7 @@ This repository provides practical examples of common design patterns in TypeScr
   - Abstract Factory
   - Singleton
   - [Builder](src/creational/builder/builder.ts)
-  - Prototype
+  - [Prototype](src/creational/prototype/prototype.ts)
 - Structural Patterns
   - Adapter
   - Bridge
