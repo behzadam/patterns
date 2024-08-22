@@ -1,9 +1,44 @@
 # TypeScript Design Patterns
 
-This is a collection of design patterns and idioms in TypeScript.
+A curated collection of TypeScript design patterns, implemented and explained for easy understanding and implementation.
 
-## Contents
+## Introduction
 
-- 1. [Creational Patterns](#creational-patterns)
-- 2. [Structural Patterns](#structural-patterns)
-- 3. [Behavioral Patterns](#behavioral-patterns)
+This repository provides practical examples of common design patterns in TypeScript. Each pattern includes a detailed explanation, code implementation, and usage scenarios.
+
+## Patterns Included
+
+- Creational Patterns
+  - [Factory Method]('./src/creational/factory/factory.ts')
+  - Abstract Factory
+  - Singleton
+  - Builder
+  - Prototype
+- Structural Patterns
+  - Adapter
+  - Bridge
+  - Composite
+  - Decorator
+  - Facade
+  - Flyweight
+  - Proxy
+- Behavioral Patterns
+  - Strategy
+  - Observer
+  - Iterator
+  - Template Method
+  - Command
+  - Chain of Responsibility
+  - Mediator
+  - State
+  - Visitor
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+Behzad Ali Mohammad Zad for creating and maintaining this repository.
+
+Enjoy exploring and learning TypeScript design patterns!
