@@ -17,7 +17,7 @@ This repository provides practical examples of common design patterns in TypeScr
 - Structural Patterns
   - [Adapter](src/structural/adapter/adapter.ts)
   - Bridge
-  - Composite
+  - [Composite](src/structural/composite/composite.ts)
   - Decorator
   - Facade
   - Flyweight
