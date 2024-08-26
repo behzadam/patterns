@@ -6,9 +6,9 @@ import {
 
 import type { LatLng, RouteAlgorithm } from "./route";
 
+
 /**
- * The RouteFactory class is responsible for creating instances of
- * different route algorithms based on the specified route type.
+ * Defines the different types of route algorithms that can be created by the `RouteFactory`.
  */
 enum RouteType {
   Shortest,
@@ -16,8 +16,9 @@ enum RouteType {
   Scenic,
 }
 
+
 /**
- * The param type for the route factory.
+ * Defines the parameters required to create a route algorithm.
  */
 type Param = {
   type: RouteType;
@@ -25,15 +26,25 @@ type Param = {
   to: LatLng;
 };
 
+
 /**
- * The factory interface for creating route objects.
+ * Defines the contract for a route factory that can create instances of different
+ * route algorithms based on the specified route type.
  */
 interface RouteFactoryType {
   create(params: Param): RouteAlgorithm;
 }
 
+
 /**
- * The factory class for creating route objects.
+ * The RouteFactory class is responsible for creating instances of
+ * different route algorithms based on the specified route type.
+ *
+ * @param {RouteType} params.type - The type of route algorithm to create.
+ * @param {LatLng} params.from - The starting location for the route.
+ * @param {LatLng} params.to - The destination location for the route.
+ * @returns {RouteAlgorithm} - The created route algorithm instance.
+ * @throws {Error} - Throws an error if the specified route type is invalid.
  */
 class RouteFactory implements RouteFactoryType {
   create({ type, from, to }: Param): RouteAlgorithm {
