@@ -1,3 +1,5 @@
+import { ExternalInstagramPackage } from "./external-pkg";
+
 /**
  * Base class for all the components.
  */
@@ -32,18 +34,6 @@ class Facebook extends Social {
 class LinkeIn extends Social {
   post(): void {
     console.log(`Posting to LinkeIn...`);
-  }
-}
-
-/**
- * There is an external package to post on Instragram,
- * and we want to adapt it to out design.
- */
-class ExternalInstagramPackage {
-  constructor() {}
-
-  postWithDifferentName(): void {
-    console.log(`Posting to Insagram...`);
   }
 }
 
