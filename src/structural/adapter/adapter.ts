@@ -1,14 +1,16 @@
 import { ExternalInstagramPackage } from "./external-pkg";
 
+
 /**
- * Base class for all the components.
+ * Represents a generic social media platform that can be used to post content.
  */
 abstract class Social {
   abstract post(): void;
 }
 
+
 /**
- * This class represnts a Schduler that can schedule posts for different social media platforms.
+ * Schedules posting to various social media platforms.
  */
 class Scheduler {
   constructor() {}
@@ -19,8 +21,9 @@ class Scheduler {
   }
 }
 
+
 /**
- * Our class to post to Facebook
+ * Our class to post to Facebook.
  */
 class Facebook extends Social {
   post(): void {
