@@ -19,7 +19,7 @@ This repository provides practical examples of common design patterns in TypeScr
   - Bridge
   - [Composite](src/structural/composite/composite.ts)
   - [Decorator](src/structural/decorator/decorator.ts)
-  - Facade
+  - [Facade](src/structural/facade/facade.ts)
   - Flyweight
   - Proxy
 - Behavioral Patterns
