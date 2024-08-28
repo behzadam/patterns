@@ -54,8 +54,3 @@ class LetterFactory {
 }
 
 export { Character, Letter, LetterFactory };
-
-// const factory = new LetterFactory();
-// factory.createLetter("A").draw(0, 0);
-// factory.createLetter("B").draw(1, 1);
-// factory.createLetter("C").draw(2, 2);
