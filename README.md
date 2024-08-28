@@ -21,7 +21,7 @@ This repository provides practical examples of common design patterns in TypeScr
   - [Decorator](src/structural/decorator/decorator.ts)
   - [Facade](src/structural/facade/facade.ts)
   - Flyweight
-  - Proxy
+  - [Proxy](src/structural/proxy/proxy.ts)
 - Behavioral Patterns
   - Strategy
   - Observer
