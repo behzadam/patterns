@@ -19,7 +19,9 @@ This repository provides practical examples of common design patterns in TypeScr
   - [Bridge](src/structural/bridge/bridge.ts)
   - [Composite](src/structural/composite/composite.ts)
   - [Decorator](src/structural/decorator/decorator.ts)
-  - Facade [[class](src/structural/facade/facade.ts)][[functional](src/structural/facade/facade-fn.ts)]
+  - [Facade](src/structural/facade/facade.ts)
+    - [P5.js Example Source](https://editor.p5js.org/behzad.am/sketches/Z_cxjFuwt)
+    - [P5.js Example Live](https://editor.p5js.org/behzad.am/full/Z_cxjFuwt)
   - [Flyweight](src/structural/flyweight/flyweight.ts)
     - [P5.js Example Source](https://editor.p5js.org/behzad.am/sketches/eTARZLkof)
     - [P5.js Example Live](https://editor.p5js.org/behzad.am/full/eTARZLkof)
