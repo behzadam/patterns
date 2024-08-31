@@ -21,6 +21,8 @@ This repository provides practical examples of common design patterns in TypeScr
   - [Decorator](src/structural/decorator/decorator.ts)
   - Facade [[class](src/structural/facade/facade.ts)][[functional](src/structural/facade/facade-fn.ts)]
   - [Flyweight](src/structural/flyweight/flyweight.ts)
+    - [P5.js Example Source](https://editor.p5js.org/behzad.am/sketches/eTARZLkof)
+    - [P5.js Example Live](https://editor.p5js.org/behzad.am/full/eTARZLkof)
   - [Proxy](src/structural/proxy/proxy.ts)
 - Behavioral Patterns
   - Strategy
