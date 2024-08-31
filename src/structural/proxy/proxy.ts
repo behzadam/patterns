@@ -7,6 +7,7 @@ interface ObjectStorage {
 
 /**
  * Provides a remote object storage implementation that loads objects from a remote server.
+ * TODO: This must be implemented
  */
 class RemoteObjectStorage implements ObjectStorage {
   constructor(private readonly key: string) {}
