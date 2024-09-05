@@ -20,10 +20,8 @@ This repository provides practical examples of common design patterns in TypeScr
   - [Composite](src/structural/composite/composite.ts)
   - [Decorator](src/structural/decorator/decorator.ts)
   - [Facade](src/structural/facade/facade.ts)
-    - [P5.js Example Source](https://editor.p5js.org/behzad.am/sketches/Z_cxjFuwt)
     - [P5.js Example Live](https://editor.p5js.org/behzad.am/full/Z_cxjFuwt)
   - [Flyweight](src/structural/flyweight/flyweight.ts)
-    - [P5.js Example Source](https://editor.p5js.org/behzad.am/sketches/eTARZLkof)
     - [P5.js Example Live](https://editor.p5js.org/behzad.am/full/eTARZLkof)
   - [Proxy](src/structural/proxy/proxy.ts)
 - Behavioral Patterns
@@ -31,7 +29,8 @@ This repository provides practical examples of common design patterns in TypeScr
   - Observer
   - Iterator
   - Template Method
-  - Command
+  - [Command](src/behavioral/command/command.ts)
+    - [P5.js Example Live](https://editor.p5js.org/behzad.am/sketches/Nu8dD-p9a)
   - Chain of Responsibility
   - Mediator
   - State
