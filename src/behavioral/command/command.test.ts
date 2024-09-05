@@ -50,4 +50,18 @@ describe("Command Pattern", () => {
       `Undone: DrawCircleCommand at (${lastCoord.x}, ${lastCoord.y})`
     );
   });
+
+  it("redoes the last undone command", () => {
+    const circles: DrawCircleCommand[] = setupCircles();
+    for (const circle of circles) {
+      invoker.execute(circle);
+      invoker.draw();
+    }
+    invoker.undo();
+    invoker.redo();
+    const lastCoord = CIRCLE_COORDS[CIRCLE_COORDS.length - 1];
+    expect(spy).toHaveBeenCalledWith(
+      `Redone: DrawCircleCommand at (${lastCoord.x}, ${lastCoord.y})`
+    );
+  });
 });

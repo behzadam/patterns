@@ -4,6 +4,7 @@
 interface Command {
   execute: () => void;
   undo: () => void;
+  redo: () => void;
   // We usually need a loop in graphical applications and then the draw method is needed.
   draw: () => void;
 }
@@ -12,9 +13,11 @@ interface Command {
  * The `Invoker` class is responsible for executing, drawing, and undoing `Command` objects.
  */
 class Invoker {
-  private commandHistory: Command[];
+  private drawingHistory: Command[];
+  private undoHistory: Command[];
   constructor() {
-    this.commandHistory = [];
+    this.drawingHistory = [];
+    this.undoHistory = [];
   }
 
   /**
@@ -22,14 +25,14 @@ class Invoker {
    */
   execute(command: Command): void {
     command.execute();
-    this.commandHistory.push(command);
+    this.drawingHistory.push(command);
   }
 
   /**
    * Draws all the commands in the command history.
    */
   draw() {
-    for (const command of this.commandHistory) {
+    for (const command of this.drawingHistory) {
       command.draw();
     }
   }
@@ -38,10 +41,21 @@ class Invoker {
    * Undoes the most recent command executed by the Invoker.
    */
   undo() {
-    if (this.commandHistory.length > 0) {
-      const removedCommand = this.commandHistory.pop();
+    if (this.drawingHistory.length > 0) {
+      const removedCommand = this.drawingHistory.pop();
       if (removedCommand) {
         removedCommand.undo();
+        this.undoHistory.push(removedCommand);
+      }
+    }
+  }
+
+  redo() {
+    if (this.undoHistory.length > 0) {
+      const removedCommand = this.undoHistory.pop();
+      if (removedCommand) {
+        removedCommand.redo();
+        this.drawingHistory.push(removedCommand);
       }
     }
   }
@@ -49,7 +63,6 @@ class Invoker {
 
 /**
  * The `DrawCircleCommand` class implements the `Command` interface and represents a command to draw a circle.
- *
  */
 class DrawCircleCommand implements Command {
   private circle?: Circle;
@@ -68,6 +81,11 @@ class DrawCircleCommand implements Command {
   undo() {
     console.log(`Undone: DrawCircleCommand at (${this.x}, ${this.y})`);
     this.circle = undefined;
+  }
+
+  redo() {
+    console.log(`Redone: DrawCircleCommand at (${this.x}, ${this.y})`);
+    this.execute();
   }
 
   /**
