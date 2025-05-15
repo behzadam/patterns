@@ -1,0 +1,75 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Pattern Implementation Guide
+
+This guide explains how to implement new design patterns in the project.
+
+## Directory Structure
+
+Each pattern should be implemented in its own directory under the appropriate category:
+
+```
+src/
+  [category]/
+    [pattern-name]/
+      [pattern-name].ts        # Main implementation
+      __tests__/              # Test files
+        [pattern-name].test.ts
+      README.md              # Documentation
+```
+
+## Implementation Steps
+
+1. Create the pattern directory under the appropriate category
+2. Create the main implementation file
+3. Add tests in the `__tests__` directory
+4. Add documentation in README.md
+5. Update the main index file to export the pattern
+
+## Documentation Requirements
+
+Each pattern's README.md should include:
+
+- Pattern description
+- Use cases
+- Implementation details
+- Configuration options
+- Usage examples
+- Related patterns
+
+## Example Implementation
+
+```typescript
+// src/architectural/circuit-breaker/circuit-breaker.ts
+export interface ICircuitBreakerOptions {
+  failureThreshold: number;
+  resetTimeout: number;
+}
+
+export interface ICircuitBreaker {
+  execute<T>(fn: () => Promise<T>): Promise<T>;
+  getState(): string;
+}
+
+export function createCircuitBreaker(options: ICircuitBreakerOptions): ICircuitBreaker {
+  // Implementation
+}
+```
+
+## Testing Requirements
+
+- Unit tests for all public APIs
+- Integration tests for complex interactions
+- Edge case coverage
+- Error handling tests
+
+## Best Practices
+
+- Keep implementations focused and single-purpose
+- Use TypeScript features for type safety
+- Follow the project's coding standards
+- Include comprehensive documentation
+- Write thorough tests

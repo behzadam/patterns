@@ -1,0 +1,37 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Project Structure
+
+This project implements various design patterns in TypeScript, organized into four main categories under the `src/` directory:
+
+## Pattern Categories
+
+- `architectural/`: Contains architectural patterns like Circuit Breaker
+- `behavioral/`: Contains behavioral design patterns
+- `structural/`: Contains structural design patterns
+- `creational/`: Contains creational design patterns
+
+## Key Files
+
+- [package.json](mdc:package.json): Project configuration and dependencies
+- [tsconfig.json](mdc:tsconfig.json): TypeScript configuration
+- [jest.config.js](mdc:jest.config.js): Jest testing configuration
+
+## Development Tools
+
+The project uses several development tools:
+- TypeScript for type safety
+- Jest for testing
+- ESLint for code linting
+- Prettier for code formatting
+
+## Available Scripts
+
+- `pnpm build`: Build the project
+- `pnpm lint`: Run ESLint
+- `pnpm test`: Run tests
+- `pnpm format:check`: Check code formatting
+- `pnpm format:fix`: Fix code formatting

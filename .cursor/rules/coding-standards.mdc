@@ -1,0 +1,56 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Coding Standards
+
+This project follows strict TypeScript coding standards to maintain code quality and consistency.
+
+## TypeScript Guidelines
+
+- Use strict type checking
+- Prefer interfaces over type aliases for object definitions
+- Use explicit return types for functions
+- Document public APIs with JSDoc comments
+
+## Code Organization
+
+Each pattern implementation should:
+- Be in its own directory under the appropriate category
+- Include a main implementation file
+- Include test files in a `__tests__` directory
+- Include documentation in a README.md file
+
+## Naming Conventions
+
+- Files: Use kebab-case for file names (e.g., `circuit-breaker.ts`)
+- Classes: Use PascalCase (e.g., `CircuitBreaker`)
+- Interfaces: Use PascalCase with 'I' prefix (e.g., `ICircuitBreakerOptions`)
+- Functions: Use camelCase (e.g., `createCircuitBreaker`)
+- Constants: Use UPPER_SNAKE_CASE (e.g., `MAX_RETRY_COUNT`)
+
+## Documentation
+
+- Use JSDoc comments for all public APIs
+- Include examples in documentation
+- Document configuration options
+- Explain the pattern's purpose and use cases
+
+## Example
+
+```typescript
+/**
+ * Creates a new circuit breaker instance
+ * @param options - Configuration options for the circuit breaker
+ * @returns A circuit breaker instance
+ * @example
+ * const breaker = createCircuitBreaker({
+ *   failureThreshold: 5,
+ *   resetTimeout: 30000
+ * });
+ */
+export function createCircuitBreaker(options: ICircuitBreakerOptions): ICircuitBreaker {
+  // Implementation
+}
+```
