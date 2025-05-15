@@ -1,28 +1,42 @@
 type CircuitState = "CLOSED" | "OPEN" | "HALF_OPEN";
 
 interface CircuitBreakerOptions {
+  /**
+   * The number of failures allowed before opening the circuit
+   */
   failureThreshold: number;
-  successThreshold: number;
-  timeout: number;
+  /**
+   * The duration the circuit will stay open before resetting
+   */
+  durationOfBreak: number;
+  /**
+   * The number of successful calls required to close the circuit
+   */
+  samplingDuration?: number;
 }
 
 class CircuitBreaker {
-  private state: CircuitState;
-  private failureCount: number;
-  private successCount: number;
-  private lastFailureTime: number;
-  private failureThreshold: number;
-  private successThreshold: number;
-  private timeout: number;
+  // State tracking
+  private state: CircuitState = "CLOSED";
+  private failureCount: number = 0;
+  private successCount: number = 0;
+  private lastFailureTime: number = 0;
+
+  // Configuration properties
+  private readonly failureThreshold: number;
+  private readonly durationOfBreak: number;
+  private readonly samplingDuration: number;
 
   constructor(options: CircuitBreakerOptions) {
-    this.state = "CLOSED";
-    this.failureCount = 0;
-    this.successCount = 0;
-    this.lastFailureTime = 0;
-    this.failureThreshold = options.failureThreshold;
-    this.successThreshold = options.successThreshold;
-    this.timeout = options.timeout;
+    const {
+      failureThreshold,
+      durationOfBreak,
+      samplingDuration = 30000,
+    } = options;
+
+    this.failureThreshold = failureThreshold;
+    this.durationOfBreak = durationOfBreak;
+    this.samplingDuration = samplingDuration;
   }
 
   async execute<T>(fn: () => Promise<T>): Promise<T> {
@@ -46,7 +60,7 @@ class CircuitBreaker {
   private onSuccess() {
     if (this.state === "HALF_OPEN") {
       this.successCount++;
-      if (this.successCount > this.successThreshold) {
+      if (this.successCount > this.samplingDuration) {
         this.reset();
       }
     } else {
@@ -63,7 +77,7 @@ class CircuitBreaker {
 
   private trip() {
     this.state = "OPEN";
-    this.lastFailureTime = Date.now() + this.timeout;
+    this.lastFailureTime = Date.now() + this.durationOfBreak;
     this.failureCount = 0;
     this.successCount = 0;
   }
@@ -74,3 +88,4 @@ class CircuitBreaker {
     this.successCount = 0;
   }
 }
+export { CircuitBreaker, type CircuitBreakerOptions };
