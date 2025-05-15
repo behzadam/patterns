@@ -1,140 +1,76 @@
-/**
- * The state of the circuit breaker
- *
- * CLOSED: The circuit breaker is closed and the circuit is not being tripped
- * OPEN: The circuit breaker is open and the circuit is being tripped
- * HALF_OPEN: The circuit breaker is half-open and the circuit is being retried
- */
-type State = "CLOSED" | "OPEN" | "HALF_OPEN";
+type CircuitState = "CLOSED" | "OPEN" | "HALF_OPEN";
 
-type CircuitBreakerOptions = {
-  /**
-   * The ratio of failures to the total number of requests
-   */
-  failureRatio: number;
-  /**
-   * The duration of the sampling period
-   */
-  samplingDuration: number;
-  /**
-   * The minimum number of successful requests required to reset the circuit breaker
-   * to the closed state
-   */
-  minimumThroughput?: number;
+interface CircuitBreakerOptions {
+  failureThreshold: number;
+  successThreshold: number;
+  timeout: number;
+}
 
-  onStateChange?: (from: State, to: State) => void;
-  isFailure?: (error: Error) => boolean;
-};
+class CircuitBreaker {
+  private state: CircuitState;
+  private failureCount: number;
+  private successCount: number;
+  private lastFailureTime: number;
+  private failureThreshold: number;
+  private successThreshold: number;
+  private timeout: number;
 
-// Function to create a circuit breaker
-export function circuitBreaker(options: CircuitBreakerOptions) {
-  // Default options
-  const {
-    failureRatio = 5,
-    samplingDuration = 30000,
-    minimumThroughput = 1,
-    onStateChange = () => {},
-    isFailure = () => true,
-  } = options;
+  constructor(options: CircuitBreakerOptions) {
+    this.state = "CLOSED";
+    this.failureCount = 0;
+    this.successCount = 0;
+    this.lastFailureTime = 0;
+    this.failureThreshold = options.failureThreshold;
+    this.successThreshold = options.successThreshold;
+    this.timeout = options.timeout;
+  }
 
-  // Internal state
-  let state: State = "CLOSED";
-  let failureCount = 0;
-  let successCount = 0;
-  let lastFailureTime = 0;
-
-  // Reset the circuit breaker
-  const reset = (): void => {
-    if (state !== "CLOSED") {
-      const previousState = state;
-      state = "CLOSED";
-      failureCount = 0;
-      successCount = 0;
-      onStateChange(previousState, "CLOSED");
-    }
-  };
-
-  // Trip the circuit breaker
-  const trip = (): void => {
-    if (state !== "OPEN") {
-      const previousState = state;
-      state = "OPEN";
-      lastFailureTime = Date.now();
-      onStateChange(previousState, "OPEN");
-    }
-  };
-
-  // Set to half-open state
-  const halfOpen = (): void => {
-    if (state !== "HALF_OPEN") {
-      const previousState = state;
-      state = "HALF_OPEN";
-      successCount = 0;
-      onStateChange(previousState, "HALF_OPEN");
-    }
-  };
-
-  // Check if the circuit is ready for a retry
-  const isReadyForRetry = (): boolean => {
-    if (state === "OPEN") {
-      const now = Date.now();
-      if (now - lastFailureTime > samplingDuration) {
-        halfOpen();
-        return true;
-      }
-      return false;
-    }
-    return true;
-  };
-
-  // Record a success
-  const recordSuccess = (): void => {
-    if (state === "HALF_OPEN") {
-      successCount++;
-      if (successCount >= minimumThroughput) {
-        reset();
-      }
-    } else if (state === "CLOSED") {
-      failureCount = 0;
-    }
-  };
-
-  // Record a failure
-  const recordFailure = (): void => {
-    if (state === "HALF_OPEN") {
-      trip();
-    } else if (state === "CLOSED") {
-      failureCount++;
-      if (failureCount >= failureRatio) {
-        trip();
+  async execute<T>(fn: () => Promise<T>): Promise<T> {
+    if (this.state === "OPEN") {
+      if (Date.now() > this.lastFailureTime) {
+        this.state = "HALF_OPEN";
+      } else {
+        throw new Error("Circuit is open. Try later.");
       }
     }
-  };
-
-  // Execute a function with circuit breaker protection
-  const execute = async <R>(fn: () => Promise<R>): Promise<R> => {
-    if (!isReadyForRetry()) {
-      throw new Error("Circuit breaker is open");
-    }
-
     try {
       const result = await fn();
-      recordSuccess();
+      this.onSuccess();
       return result;
     } catch (error) {
-      if (error instanceof Error && isFailure(error)) {
-        recordFailure();
-      }
+      this.onFailure();
       throw error;
     }
-  };
+  }
 
-  // Get the current state of the circuit
-  const getState = (): State => state;
+  private onSuccess() {
+    if (this.state === "HALF_OPEN") {
+      this.successCount++;
+      if (this.successCount > this.successThreshold) {
+        this.reset();
+      }
+    } else {
+      this.reset();
+    }
+  }
 
-  return {
-    execute,
-    getState,
-    reset,
-  };
+  private onFailure() {
+    this.failureCount++;
+    if (this.failureCount >= this.failureThreshold) {
+      this.trip();
+    }
+  }
+
+  private trip() {
+    this.state = "OPEN";
+    this.lastFailureTime = Date.now() + this.timeout;
+    this.failureCount = 0;
+    this.successCount = 0;
+  }
+
+  private reset() {
+    this.state = "CLOSED";
+    this.failureCount = 0;
+    this.successCount = 0;
+  }
 }
